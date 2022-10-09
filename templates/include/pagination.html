@@ -1,0 +1,54 @@
+
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?{{query}}{{genres}}{{year}}page={{page_obj.previous_page_number}}">
+                <li class="pagenation-page"><i class="fa-solid fa-angle-left"></i></li>
+            </a>
+            {% if page_obj.number|add:'-3' >= 3 %}
+                <a class="pagination-page-link" href="?{{query}}{{genres}}{{year}}page={{ page_obj.previous_page_number|add:'-3' }}">
+                    <li class="pagination-page-dots"><i class="fa-solid fa-angles-left"></i></li>
+                </a>
+            {% endif %}
+            {% if page_obj.number|add:'-3' > 1 %}
+                <a href="{{query}}{{genres}}{{year}}?page=1">
+                    <li class="pagenation-page">1</li>
+                </a>
+            {% endif %}
+            <a href="?{{query}}{{genres}}{{year}}page={{page_obj.previous_page_number}}">
+                <li class="pagenation-page">{{page_obj.previous_page_number}}</li>
+            </a>
+        {% endif %}
+        {% if paginator.page_range|length == 1 %}
+            <a class="pagination-page-link active" href="?{{query}}{{genres}}{{year}}page={{ page_obj.number }}">
+                <li class="pagination-page">{{ page_obj.number }}</li>
+            </a>
+        {% endif %}
+        {% if paginator.page_range|length > 1 %}
+            {% for page in paginator.page_range %}
+                {% if page_obj.number == page %}
+                    <a class="pagination-page-link active" href="?{{query}}{{genres}}{{year}}page={{ page }}">
+                        <li class="pagination-page">{{ page }}</li>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        {% if page_obj.has_next %}
+            <a href="?{{query}}{{genres}}{{year}}page={{page_obj.next_page_number}}">
+                <li class="pagenation-page">{{page_obj.next_page_number}}</li>
+            </a>
+            {% if page_obj.number|add:'3' < page_obj.paginator.num_pages %}
+                <a class="pagination-page-link" href="?{{query}}{{genres}}{{year}}page={{ page_obj.paginator.num_pages }}">
+                    <li class="pagination-page">{{ page_obj.paginator.num_pages }}</li>
+                </a>
+            {% endif %}
+            {% if page_obj.number|add:'4' < page_obj.paginator.num_pages %}
+                <a href="?{{query}}{{genres}}{{year}}page={{ page_obj.next_page_number|add:'3' }}">
+                    <li class="pagenation-page"><i class="fa-solid fa-angles-right"></i></li>
+                </a>
+            {% endif %}
+            <a href="?{{query}}{{genres}}{{year}}page={{page_obj.next_page_number}}">
+                <li class="pagenation-page"><i class="fa-solid fa-angle-right"></i></li>
+            </a>
+        {% endif %}
+    </ul>

@@ -1,0 +1,5 @@
+<form action="{% url 'mailing_url' %}" method="post">
+    {% csrf_token %}
+    {{ contactdata_form}}
+    <button><i class="fa-solid fa-envelope"></i></button>
+</form>

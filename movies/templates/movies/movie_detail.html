@@ -1,0 +1,141 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title%}
+    {{movie.name}}
+{% endblock %}
+{% block p_content %}
+    <div class="movie-detail-container">
+        <div class="movie-detail-title">
+            <h1>{{movie.name}} ({{movie.year}})</h1>
+        </div>
+        <div class="movie-detail-wrapp">
+            <div class="movie-detail-media">
+                <div class="movie-detail-pic">
+                    <img src="{{movie.poster.url}}" alt="poster">
+                </div>
+                <div class="movie-detail-trailer">
+                    {{movie.trailer|safe}}
+                </div>
+            </div>
+            <div class="movie-detail-description">
+                <div class="movie-detail-genres">
+                    {% for genre in movie.genres.all %}
+                            <div class="movie-detail-genres-item">
+                                {{ genre.name }}
+                            </div>
+                        {% endfor %}
+                </div>
+                <ul class="movie-detail-description-list">
+                    <li class="movie-detail-description-item">
+                        {{ movie.description}}
+                    </li>
+                    <li class="movie-detail-description-item">
+                        <strong>Year:</strong>
+                        {{ movie.year }}
+                    </li>
+                    <li class="movie-detail-description-item">
+                        <strong>Country: </strong>
+                        {{ movie.contry }}
+                    </li>
+                    <li class="movie-detail-description-item">
+                        <strong>Director: </strong>
+                        {% for director in movie.director.all %}
+                            <a href="{{ director.get_adsolute_url }}" class="movie-detail-person-link">{{ director.full_name }}</a>
+                        {% endfor %}
+                    </li>
+                    <li class="movie-detail-description-item">
+                        <strong>Actors: </strong>
+                        {% for actor in movie.actors.all %}
+                        <a href="{{ actor.get_adsolute_url }}" class="movie-detail-person-link">{{ actor.full_name }}</a> <span class="wall"> | </span>
+                        {% endfor %}
+                    </li>
+                    <li class="movie-detail-description-item">
+                        <strong>Premiere: </strong>
+                        {{movie.premiere}}
+                    </li>
+                    <li class="movie-detail-description-item">
+                        <strong>Budget: </strong>
+                            ${{movie.budget}}
+
+                    </li>
+                    <li class="movie-detail-description-item">
+                        <strong>Box office: </strong>
+                            ${{movie.box_office}}
+                    </li>
+                    <li class="movie-detail-description-item">
+                        <form action="{% url 'add_rating_url'%}" method="post" name="rating">
+                            <strong>Rating: </strong>
+                            {%csrf_token%}
+                            {% comment %} <input type="hidden" value="{{request.path}}" name="next"> {% endcomment %}
+                            <input type="hidden" value="{{movie.id}}" name="movie">
+                            <span class="movie-detail-description-item rating">
+                            {% for key, value in star_form.fields.star.choices %}
+                                <input id="rating{{value}}" type="radio" name="star" value="{{ key }}" >
+                                <label for="rating{{value}}"></label>
+                            {% endfor %}
+                            </span>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!--Footage-->
+
+        <div class="movie-detail-footage-container">
+            <h2>Footage</h2>
+            <div class="movie-detail-footage-wrapp">
+                <div class="movie-detail-footage">
+                    {% for image in movie.footage_set.all %}
+                    <div class="movie-detail-footage-item">
+                        <img src="{{image.image.url}}" class="movie-detail-footage-img" alt="#">
+                    </div>
+                    {% endfor %}
+                </div>
+                <i class="fa-solid fa-angle-right arrow"></i>
+            </div>
+        </div>
+
+        <!--Review-->
+
+        <div class="movie-detail-review-container">
+            <div class="movie-detail-review">
+                <form action="{% url 'add_review_url' movie.id%}" method="post">
+                    {% csrf_token %}
+                    <h3>Send your feedback</h3>
+                    <div class="movie-detail-review-id">
+                        <input type="text" placeholder="Full name" name="name">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="movie-detail-review-id">
+                        <input type="email" placeholder="Email" name="email">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <textarea cols="15" rows="5" name="text" placeholder="Enter your opinions here..."></textarea>
+                    <button>Send</button>
+                </form>
+            </div>
+        </div>
+        {% if  movie.review_set.all %}
+        <h2 class="user-reviews">User Reviews</h2>
+        <div class="movie-detail-user-reviews">
+            {% for review in movie.review_set.all %}
+            <div class="movie-detail-user-review">
+                <div class="user-detail">
+                    <div class="user-detail-img">
+                        <img src="{% static 'images/user-img.png' %}" alt="">
+                    </div>
+                    <div class="user-name">
+                        <strong>{{review.name}}</strong>
+                    </div>
+                </div>
+                <div class="user-review">
+                    <p>{{review.text}}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+    </div>
+{%endblock%}

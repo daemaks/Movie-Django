@@ -1,0 +1,72 @@
+{% load contactdata_tags %}
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-links">
+            <ul>
+                <li>
+                    <a href="#">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa-brands fa-twitter"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer-under-links-container">
+            <div class="footer-under-links mailing">
+                <h3>Subscribe to the newsletter</h3>
+                {% contactdata_form %}
+                <p>Once you are subscribed to our newsletter, you will get the latest updates and features on the website. The subscription is free.</p>
+            </div>
+            <div class="footer-under-links project">
+                <h3>Project</h3>
+                <ul>
+                    <li>
+                        <a href="#">Changelog</a>
+                    </li>
+                    <li>
+                        <a href="#">Status</a>
+                    </li>
+                    <li>
+                        <a href="#">License</a>
+                    </li>
+                    <li>
+                        <a href="#">All Version</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-under-links help">
+                <h3>Help</h3>
+                <ul>
+                    <li>
+                        <a href="#">Support</a>
+                    </li>
+                    <li>
+                        <a href="#">Throubleshooting</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,36 @@
+{% load movie_tags%}
+<nav class="navbar">
+    <div class="container">
+        <a href="{% url 'home_page_url'%}" class="navbar-logo">EnjoyMovie</a>
+        <div class="navbar-wrap">
+            <!--searchbox-->
+            <form action="{% url 'search_page_url' %}" method="GET" class="search-box">
+                <input class="search-txt" type="search" name="query" placeholder="Type to search" required="">
+                <button type="submit" class="search-btn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+            <!--// searchbox-->
+            <div class="category-selected">
+                <button class="category-btn">Category<i class="fa-solid fa-chevron-down"></i></button>
+                <ul class="dropdown-category">
+                    {% get_categories as categories %}
+                    {% for category in categories %}
+                        <li class="dropdown-category-item"><a href="/">{{category.name}}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="user-container">
+                {% if user.is_authenticated %}
+                    <span class="user-item">{{ user.username|truncatechars:5 }}</span>
+                    <span> | </span>
+                    <a href="{% url 'account_logout' %}" class="user-item">Log Out</a>
+                {% else %}
+                    <a href="{% url 'account_login' %}" class="user-item">Sign in</a>
+                    <span> | </span>
+                    <a href="{% url 'account_signup' %}" class="user-item">Sign up</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>

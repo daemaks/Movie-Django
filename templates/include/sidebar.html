@@ -1,0 +1,41 @@
+<div class="sidebar">
+    <button class="sidebar-btn">
+        <i class="fa-solid fa-chevron-right"></i>
+    </button>
+    <!--genre -->
+    <form action="{% url 'filter_page_url' %}" method="get">
+        <div class="sidebar-filter genre">
+            <h3 class="sear-head editContent">Genre</h3>
+            <ul class="w3layouts-box-list">
+                {% for genre in view.get_genres %}
+                    <li class="editContent">
+                        <label class="label">
+                            <input type="checkbox" class="checked" name="genres" value="{{ genre.id }}">
+                            <span class="check-box"></span>
+                            <span class="span editContent">{{genre.name}}</span>
+                        </label>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- // genre -->
+        <!-- year -->
+
+        <div class="sidebar-filter year">
+            <h3 class="sear-head editContent">Year</h3>
+            <ul class="w3layouts-box-list">
+                {% for movie in view.get_years|dictsortreversed:'year' %}
+                    <li class="editContent">
+                        <label class="label">
+                            <input type="checkbox" class="checked" name="year" value="{{ movie.year }}">
+                            <span class="check-box"></span>
+                            <span class="span editContent">{{ movie.year }}</span>
+                        </label>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <button type="submit" class="sidebar-filer-btn">Search</button>
+    </form>
+    <!-- //year -->
+</div>

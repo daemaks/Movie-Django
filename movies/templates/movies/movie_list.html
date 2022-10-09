@@ -1,0 +1,23 @@
+{% extends 'base.html'%}
+{% block title%}
+    Home
+{% endblock %}
+
+{% block p_content %}
+{% include  'include/sidebar.html' %}
+    <div class="movie-list-wrapp">
+        <div class="movie-list"></div>
+        {% for movie in movie_list %}
+                <div class="movie-list-item">
+                    <img class="poster" src="{{movie.poster.url}}" alt="poster">
+                    <div class="movie-list-title">
+                        <a class="title" href="{{ movie.get_adsolute_url }}">{{movie.name}}</a>
+                    </div>
+                </div>
+        {% endfor %}
+        </div>
+    </div>
+    <section class="movie-list-pagination">
+        {%include 'include/pagination.html'%}
+    </section>
+{%endblock%}

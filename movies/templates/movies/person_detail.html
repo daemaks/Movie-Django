@@ -1,0 +1,37 @@
+{% extends 'base.html'%}
+{% block title%}
+    {{person.full_name}}
+{% endblock %}
+{% block p_content %}
+    <div class="person-detail-container">
+        <div class="person-detail-img">
+            <img src="{{person.image.url}}" alt="">
+        </div>
+        <div class="person-detail-info">
+            <ul>
+            <li class="person-detail-info-item">
+                <strong>Name:</strong> {{person.full_name}}
+            </li>
+            <li class="person-detail-info-item">
+                <strong>Age:</strong> {{person.age}}
+            </li>
+            <li class="person-detail-info-item">
+                <strong>Actor:</strong>
+                {% for movie in person.film_actor.all %}
+                    <a href="{{ movie.get_adsolute_url }}">{{movie.name}}<span class="wall"> | </span></a>
+                {% endfor %}
+            </li>
+            <li class="person-detail-info-item">
+                <strong>Director:</strong>
+                {% for movie in person.film_director.all %}
+                    <a href="{{ movie.get_adsolute_url }}">{{movie.name}}<span class="wall"> | </span></a>
+                {% endfor %}
+            </li>
+            <li class="person-detail-info-item">
+                <h4>Mini Bio</h4>
+                <p>{{person.description}}</p>
+            </li>
+            </ul>
+        </div>
+    </div>
+{%endblock%}
